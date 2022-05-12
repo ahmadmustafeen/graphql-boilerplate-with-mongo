@@ -1,0 +1,34 @@
+module.exports = {
+    User:[
+        {
+            id:1,
+            firstName:"John",
+            lastName:"Doe",
+            email:"JohnDoe@gmail.com"
+        },
+        {
+            id:2,
+            firstName:"Jane",
+            lastName:"Doe",
+            email:"JaneDoe@gmail.com"
+        },
+        {
+            id:3,
+            firstName:"Jack",
+            lastName:"Doe",
+            email:""
+        },
+        {
+            id:4,
+            firstName:"Jill",
+            lastName:"Doe",
+            email:""
+        },
+        {
+            id:5,
+            firstName:"Josh",
+            lastName:"Doe",
+            email:""
+        }
+    ]
+}
