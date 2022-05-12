@@ -11,14 +11,17 @@ module.exports = {
       firstName: String
       lastName: String
       email: String
+      password: String
     }
 
     type Query {
       FetchUsers: [User]
       FilterUser(id: String): User
+      LoginUser(email: String!, password: String!): User
+
     }
     type Mutation {
-      CreateUser(firstName: String!, lastName: String!, email: String!): User
+      CreateUser(firstName: String!, lastName: String!, email: String!,password: String!): User
     }
   `,
 };
