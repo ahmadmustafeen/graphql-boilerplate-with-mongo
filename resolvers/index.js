@@ -3,6 +3,8 @@ const {Users} = require('../models/UserSchema');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 const {getToken} = require('../helper');
+const { AuthenticationError } = require('apollo-server');
+const { Post } = require('../models/PostSchema');
 //resolver holds the actions you will us here
 
 
@@ -23,7 +25,25 @@ module.exports = {
       LoginUser: async (root, args, context, info) => {
         const user  = await Users.findOne({email: args.email, password: args.password});
         return user
-      }
+      },
+      CreatePost: async (root,args,context,info) => {
+        const user = await jwt.verify(args.token, process.env.SECRET_KEY, (err, decoded) => {
+            if (err) throw new AuthenticationError('invalid token!');
+            return decoded;
+          });
+          const old_post = await Post.find();
+        const post = await new Post({
+            id: old_post.length,
+            title: args.title,
+            content: args.content,
+
+        })
+        await post.save();
+        return 'post created';
+    },
+    FetchPosts: async () => {
+        return await Post.find();
+    }
     },
     Mutation: {
       CreateUser: async (root, args, context, info) => {
@@ -42,7 +62,7 @@ module.exports = {
             if(user.find(user => user.email === args.email)){
                 throw new Error('User already exists');
             }
-            const token = getToken(user);
+            const token = getToken(args);
 
             const users = Users({
                 id: user.length,
@@ -54,7 +74,8 @@ module.exports = {
             })
             users.save();
             return {...args,token:token};
-      }
+      },
+      
     },
   },
 };

@@ -2,11 +2,12 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
 module.exports = {
-    getToken : ({ id, username, email }) =>
+    getToken : ({ id, firstName,lastName, email }) =>
     jwt.sign(
       {
         id,
-        username,
+        firstName,
+        lastName,
         email
       },
       process.env.SECRET_KEY,
