@@ -13,6 +13,10 @@ const Posts = new Schema({
     content: {
         type: String,
         required: true
+    },
+    writer:{
+        type:String,
+        required:true
     }
 })
 var Post = mongoose.model("Posts", Posts);

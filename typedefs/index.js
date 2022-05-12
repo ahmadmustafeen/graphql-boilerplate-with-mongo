@@ -18,6 +18,7 @@ module.exports = {
         id: String
         title: String
         content: String
+        writer:String
     }
     type Query {
       FetchUsers: [User]
