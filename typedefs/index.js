@@ -12,6 +12,7 @@ module.exports = {
       lastName: String
       email: String
       password: String
+      token: String
     }
 
     type Query {
@@ -21,7 +22,8 @@ module.exports = {
 
     }
     type Mutation {
-      CreateUser(firstName: String!, lastName: String!, email: String!,password: String!): User
+      CreateUser(firstName: String!, lastName: String!, email: String!,password: String!): User,
+      RegisterUser(firstName: String!, lastName: String!, email: String!,password: String!): User,
     }
   `,
 };

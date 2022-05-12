@@ -1,10 +1,15 @@
 
 const {Users} = require('../models/UserSchema');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const {getToken} = require('../helper');
 //resolver holds the actions you will us here
 
 
 // PS. if the output doesnt match the format as given in the typedefs then it will not work, will not show the data
 // must match array of objects if array is the output defined in the typedefs
+
+
 
 module.exports = {
   resolver: {
@@ -30,9 +35,26 @@ module.exports = {
           email: args.email,
             password: args.password
         });
-        users.save();
-        return args;
+        
       },
+      RegisterUser: async (root, args, context, info) => {
+            const user = await Users.find()
+            if(user.find(user => user.email === args.email)){
+                throw new Error('User already exists');
+            }
+            const token = getToken(user);
+
+            const users = Users({
+                id: user.length,
+                firstName: args.firstName,
+                lastName: args.lastName,
+                email: args.email,
+                password: args.password,
+                token: token
+            })
+            users.save();
+            return {...args,token:token};
+      }
     },
   },
 };
