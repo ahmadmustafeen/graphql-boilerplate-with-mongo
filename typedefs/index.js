@@ -12,16 +12,23 @@ module.exports = {
       lastName: String
       email: String
       password: String
+      token: String
     }
-
+    type Post {
+        id: String
+        title: String
+        content: String
+    }
     type Query {
       FetchUsers: [User]
       FilterUser(id: String): User
       LoginUser(email: String!, password: String!): User
-
+      CreatePost(token: String!, title: String, content: String): String
+        FetchPosts: [Post]
     }
     type Mutation {
-      CreateUser(firstName: String!, lastName: String!, email: String!,password: String!): User
+      CreateUser(firstName: String!, lastName: String!, email: String!,password: String!): User,
+      RegisterUser(firstName: String!, lastName: String!, email: String!,password: String!): User,
     }
   `,
 };
